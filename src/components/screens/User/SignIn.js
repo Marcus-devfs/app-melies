@@ -37,60 +37,65 @@ export function SignIn({ navigation, route = {} }) {
                 <TouchableOpacity style={{ position: "absolute", top: 40, right: 50 }} onPress={() => setTheme(!theme)}>
                     <Image style={{ width: 40, height: 40 }} source={colorIcon} />
                 </TouchableOpacity>
-                <View style={{ ...styles.fieldsContainer, backgroundColor: colorPalette?.primary }}>
-                    <TextUI style={styles.title}>Bem-vindo</TextUI>
-                    <View style={{ position: "absolute", borderRadius: 12, backgroundColor: colorPalette?.buttonColor, paddingBottom: 2, paddingTop: 2, paddingLeft: 12, paddingRight: 12, alignItems: "center", justifyContent: "center", right: 80, top: 50 }}>
-                        <TextUI style={{ color: '#fff', fontWeight: "bold", fontSize: 13 }}>ALUNO</TextUI>
-                    </View>
-                    <TextInputField
-                        onChangeText={onChange}
-                        value={userData?.email}
-                        name='email'
-                        placeholder='E-mail'
-                        label='E-mail'
-                        required
-                        style={{
-                            ...styles.input,
-                            ...{ marginTop: 10 },
-                            backgroundColor: !theme ? '#1B1829' : colorPalette?.primary,
-                            color: !theme ? '#fff' : colorPalette?.textColor,
-                            borderColor: theme ? '#000' : colorPalette?.inputColor,  // Utiliza a propriedade borderColor
-                            borderWidth: 1
-                        }}
-                        autoCapitalize='none'
-                        keyboardType='email-address'
-                        textContentType='emailAddress'
-                        returnKeyType="next"
-                        placeholderTextColor='#fff'
-                        onBlur={() => setShowLogo(true)}
-                        onFocus={() => setShowLogo(false)}
-                    />
+                <View style={{ ...styles.fieldsContainer, backgroundColor: !theme ? colorPalette?.primary : colorPalette?.secondary }}>
 
-                    <TextInputField
-                        onChangeText={onChange}
-                        value={userData?.senha}
-                        name='senha'
-                        placeholder='Senha'
-                        label='Senha'
-                        required
-                        style={{
-                            ...styles.input,
-                            ...{ marginTop: 10 },
-                            backgroundColor: !theme ? '#1B1829' : colorPalette?.primary || '#ff00ff',
-                            color: !theme ? '#fff' : colorPalette?.textColor,
-                            borderColor: theme ? '#000' : colorPalette?.inputColor,  // Utiliza a propriedade borderColor
-                            borderWidth: 1
-                        }}
-                        autoCapitalize='none'
-                        keyboardType="visible-password"
-                        textContentType="password"
-                        placeholderTextColor='#fff'
-                        onBlur={() => setShowLogo(true)}
-                        onFocus={() => setShowLogo(false)}
-                    />
+                    <View style={{ paddingHorizontal: 20, display: 'flex', flexDirection: 'row', width: `100%`, justifyContent: 'space-between', alignItems: 'center' }}>
+                        <TextUI bold large style={styles.title}>Bem-vindo</TextUI>
+                        <View style={{ borderRadius: 12, backgroundColor: colorPalette?.buttonColor, paddingVertical: 5, paddingHorizontal: 12, alignItems: "center", justifyContent: "center" }}>
+                            <TextUI styles={{ color: '#fff', fontWeight: "bold", fontSize: 13 }}>ALUNO</TextUI>
+                        </View>
+                    </View>
+                    <View style={{ marginTop: 30 }}>
+
+                        <TextInputField
+                            onChangeText={onChange}
+                            value={userData?.email}
+                            name='email'
+                            placeholder='E-mail'
+                            label='E-mail'
+                            required
+                            style={{
+                                ...styles.input,
+                                ...{ marginTop: 10 },
+                                backgroundColor: !theme ? '#1B1829' : colorPalette?.primary,
+                                color: !theme ? '#fff' : colorPalette?.textColor,
+                            }}
+                            autoCapitalize='none'
+                            keyboardType='email-address'
+                            textContentType='emailAddress'
+                            returnKeyType="next"
+                            placeholderTextColor='#fff'
+                            onBlur={() => setShowLogo(true)}
+                            onFocus={() => setShowLogo(false)}
+                        />
+
+                        <TextInputField
+                            onChangeText={onChange}
+                            value={userData?.senha}
+                            name='senha'
+                            placeholder='Senha'
+                            label='Senha'
+                            required
+                            style={{
+                                ...styles.input,
+                                ...{ marginTop: 10 },
+                                backgroundColor: !theme ? '#1B1829' : colorPalette?.primary || '#ff00ff',
+                                color: !theme ? '#fff' : colorPalette?.textColor,
+                            }}
+                            autoCapitalize='none'
+                            keyboardType="visible-password"
+                            textContentType="password"
+                            placeholderTextColor='#fff'
+                            onBlur={() => setShowLogo(true)}
+                            onFocus={() => setShowLogo(false)}
+                        />
+                    </View>
 
                     <ButtonComponent text="Entrar" onPress={() => setUser(true)} />
-                    <ButtonComponent secondary={true} text="Falar com suporte" />
+                    <View style={{ flexDirection: 'column', marginTop: 20, alignItems: 'center', width: '100%' }}>
+                        <TextUI>Esqueceu sua senha?</TextUI>
+                        <ButtonComponent secondary={true} text="Redefinir" style={{ width: 140 }} />
+                    </View>
                     <Image style={{ position: "absolute", bottom: 40, left: 50 }} source={favicon} />
                 </View>
             </ImageBackground>
@@ -124,11 +129,8 @@ const styles = StyleSheet.create({
         height: 85
     },
     fieldsContainer: {
-
-        paddingLeft: 30,
-        paddingRight: 30,
-        paddingTop: 40,
-        paddingBottom: 30,
+        paddingHorizontal: 40,
+        paddingVertical: 60,
         width: 350,
         height: 550,
         position: "absolute",
@@ -140,17 +142,16 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         fontWeight: '700',
-        marginBottom: 20,
     },
     registryButton: {
         marginTop: 40
     },
     input: {
         marginTop: 20,
-        padding: 20,
+        paddingHorizontal: 20,
+        paddingVertical: 18,
         color: Colors.darkText,
         borderRadius: 8,
-
     },
     submitButton: {
         backgroundColor: Colors.darkButton,
