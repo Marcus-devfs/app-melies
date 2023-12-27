@@ -24,7 +24,7 @@ export const TextUI = (props) => {
                 color: colorPalette?.textColor ||
                     '#f0f0f0',
                 fontWeight: bold ? 'bold' : '500',
-                fontSize: 13,
+                fontSize: 14,
                 ...(small && { fontSize: 10 }),
                 ...(subTitle && { fontSize: 15 }),
                 ...(title && { fontSize: 18 }),

@@ -57,8 +57,8 @@ export function SignIn({ navigation, route = {} }) {
                             style={{
                                 ...styles.input,
                                 ...{ marginTop: 10 },
-                                backgroundColor: !theme ? '#1B1829' : colorPalette?.primary,
-                                color: !theme ? '#fff' : colorPalette?.textColor,
+                                backgroundColor: !theme ? '#1B1829' : colorPalette?.primary || '#fff',
+                                color: !theme ? '#fff' : colorPalette?.textColor || '#fff',
                             }}
                             autoCapitalize='none'
                             keyboardType='email-address'
@@ -80,7 +80,7 @@ export function SignIn({ navigation, route = {} }) {
                                 ...styles.input,
                                 ...{ marginTop: 10 },
                                 backgroundColor: !theme ? '#1B1829' : colorPalette?.primary || '#ff00ff',
-                                color: !theme ? '#fff' : colorPalette?.textColor,
+                                color: !theme ? '#fff' : colorPalette?.textColor || '#fff',
                             }}
                             autoCapitalize='none'
                             keyboardType="visible-password"

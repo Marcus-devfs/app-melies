@@ -3,7 +3,6 @@
 # dependencies
 node_modules/
 .env
-yarn.lock
 
 # Expo
 .expo/

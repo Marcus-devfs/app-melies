@@ -28,7 +28,8 @@ export const ButtonComponent = (props) => {
                 backgroundColor: colorPalette?.buttonColor,
                 ...(secondary && {
                     borderRadius: 8,
-                    padding: 15,
+                    paddingHorizontal: small ? 5 : 15,
+                    paddingVertical: small ? 5 : 15,
                     borderColor: colorPalette?.buttonColor,
                     backgroundColor: 'transparent',
                     borderWidth: 2,

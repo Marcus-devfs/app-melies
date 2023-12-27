@@ -5,6 +5,7 @@ import { Dashboard } from '../../screens';
 import { useAppContext } from '../../../contexts/AppContext';
 import { TextUI } from '../../atoms';
 import { UserProfile } from '../../screens/User/UserProfile';
+import { Financial } from '../../screens/Financial/Financial';
 
 export default function MainTabNavigator({ navigation, route }) {
    const { login, alert, theme, colorPalette } = useAppContext()
@@ -43,7 +44,7 @@ export default function MainTabNavigator({ navigation, route }) {
                }
             }}
          />
-         <Tab.Screen name="Financeiro" component={Dashboard}
+         <Tab.Screen name="Financeiro" component={Financial}
             options={{
                tabBarIcon: ({ focused, color, size }) => {
                   return (
