@@ -9,11 +9,7 @@ export const Body = ({ children, padding = 20 }) => {
     return (
         <View style={{ ...styles.container, backgroundColor: colorPalette?.primary }}>
             <StatusBarComponent />
-<<<<<<< HEAD
-            <View style={{ ...styles.dashboardContainer, padding }}>{children}</View>
-=======
             <View style={{ ...styles.dashboardContainer, paddingTop: padding }}>{children}</View>
->>>>>>> add-screen-financial
         </View>
     )
 }

@@ -3,12 +3,9 @@ import { Image, StyleSheet, TouchableOpacity, View, Dimensions } from 'react-nat
 import { Ionicons } from '@expo/vector-icons';
 import { Dashboard } from '../../screens';
 import { useAppContext } from '../../../contexts/AppContext';
-<<<<<<< HEAD
-=======
 import { TextUI } from '../../atoms';
 import { UserProfile } from '../../screens/User/UserProfile';
 import { Financial } from '../../screens/Financial/Financial';
->>>>>>> add-screen-financial
 
 export default function MainTabNavigator({ navigation, route }) {
    const { login, alert, theme, colorPalette } = useAppContext()
@@ -39,10 +36,6 @@ export default function MainTabNavigator({ navigation, route }) {
                tabBarIcon: ({ focused, color, size }) => {
                   return (
                      <>
-<<<<<<< HEAD
-                        <View style={focused && styles.bar} />
-                        <Ionicons name='home-outline' size={30} color={focused ? '#748A45' : '#C2C2C2'} />
-=======
                         <View style={focused && { ...styles.bar, backgroundColor: colorPalette.buttonColor }} />
                         <Ionicons name='home-outline' size={25} color={focused ? colorPalette.buttonColor : '#C2C2C2'} />
                         <TextUI small>Home</TextUI>
@@ -131,7 +124,6 @@ export default function MainTabNavigator({ navigation, route }) {
                            source={require('./../../../../assets/icons/meus_dados.png')}
                         />
                         <TextUI small>Meus dados</TextUI>
->>>>>>> add-screen-financial
                      </>
                   );
                }
@@ -157,11 +149,7 @@ const SearchButton = ({ onPress }) => {
             elevation: 5, // Sombra para o botão
             marginTop: -10, // Ajuste a margem superior para cima
          }}>
-<<<<<<< HEAD
-            <Ionicons name='search-outline' size={30} color={'#fff'} />
-=======
             <Ionicons name='search-outline' size={25} color={'#fff'} />
->>>>>>> add-screen-financial
          </View>
       </TouchableOpacity>
    );
@@ -170,11 +158,7 @@ const SearchButton = ({ onPress }) => {
 const CustomTabBarButton = ({ focused, icon, showBar }) => {
    return (
       <View style={styles.buttonContainer}>
-<<<<<<< HEAD
-         <Ionicons name={icon} size={30} color={'#fff'} />
-=======
          <Ionicons name={icon} size={25} color={'#fff'} />
->>>>>>> add-screen-financial
          {focused && showBar && <View style={styles.bar} />}
       </View>
    );

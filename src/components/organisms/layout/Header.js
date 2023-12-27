@@ -3,20 +3,6 @@ import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { TextUI } from '../../atoms'
 import themeIcon from './../../../../assets/icons/theme_icon.png';
 import themeIconDark from './../../../../assets/icons/theme_icon_dark.png';
-<<<<<<< HEAD
-import { useAppContext } from '../../../contexts/AppContext';
-
-export const Header = ({ children, height = 80, title }) => {
-    const { theme, setTheme , colorPalette} = useAppContext()
-    const colorIcon = theme ? themeIcon : themeIconDark;
-
-
-    return (
-        <View style={{ ...styles.container, height, backgroundColor: colorPalette?.primary }}>
-            <TextUI style={{ fontSize: 18, fontWeight: 'bold' }}>{title}</TextUI>
-            {children}
-            <TouchableOpacity style={{ position: "absolute", top: 50, right: 50 }} onPress={() => setTheme(!theme)}>
-=======
 import menuIconClear from './../../../../assets/icons/menu.png';
 import menuIconDark from './../../../../assets/icons/menu_dark.png';
 import { useAppContext } from '../../../contexts/AppContext';
@@ -40,7 +26,6 @@ export const Header = ({ children, height = 80, title, logo = false }) => {
             {title && <TextUI bold title style={{ fontSize: 18, fontWeight: 'bold' }}>{title}</TextUI>}
             {children}
             <TouchableOpacity style={{ position: "absolute", top: 50, right: 30 }} onPress={() => setTheme(!theme)}>
->>>>>>> add-screen-financial
                 <Image style={{ width: 30, height: 30 }} source={colorIcon} />
             </TouchableOpacity>
         </View>
