@@ -1,3 +1,3 @@
 export { Colors } from './layout/Colors'
-export { Body } from '../organisms/layout/Body'
-export { Header } from '../organisms/layout/Header'
+export { Body } from './layout/Body'
+export { Header } from './layout/Header'
