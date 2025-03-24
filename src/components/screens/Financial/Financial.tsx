@@ -1,26 +1,12 @@
-import React, { useRef, useState } from 'react'
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { ButtonComponent, Spacer, TextUI } from '../../atoms'
-import { Body, Colors, Header } from '../../organisms'
-import themeIcon from './../../../../assets/icons/theme_icon.png';
-import themeIconDark from './../../../../assets/icons/theme_icon_dark.png';
-import backgroundImageClear from '../../../../assets/background/login-clean.png';
-import backgroundImageDark from '../../../../assets/background/login-dark.png';
-import faviconClear from './../../../../assets/icons/favicon_clear.png';
-import faviconDark from './../../../../assets/icons/favicon_dark.png';
-import { useAppContext } from '../../../contexts/AppContext';
-import Carousel from 'react-native-snap-carousel';
-import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from '../../organisms/Carousel';
+import React from 'react'
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { ButtonComponent, Spacer, TextUI } from '../../ui/atoms'
+import { Body, Colors, Header } from '../../ui/organisms'
+import { useAppContext } from '../../../contexts/AppContext'
 
-export function Financial({ navigation, route = {} }) {
+export function Financial() {
 
-    const { theme, setUser, colorPalette } = useAppContext()
-    const isCarousel = useRef(null)
-
-
-    const colorIcon = theme ? themeIcon : themeIconDark;
-    const backgroundImage = theme ? backgroundImageClear : backgroundImageDark;
-    const favicon = theme ? faviconClear : faviconDark;
+    const { colorPalette } = useAppContext()
 
     const installments = [
         { id: '01', pagante: 'Marcus Silva', dia: '20/11/2023', nome_turma: 'TAL12', periodo: 'Manhã', valor: 1000, status: 'pago', tipoPagamento: 'Boleto', parcela: 1 },
@@ -32,23 +18,7 @@ export function Financial({ navigation, route = {} }) {
 
     ]
 
-    const aulasDia = [
-        { id: '01', nome_turma: 'BDL09', nome_disciplina: 'Desenho', professor: 'Fernando Silva', dia: '20/11' },
-        { id: '02', nome_turma: 'BDL09', nome_disciplina: 'Luz, Textura e Render', professor: 'Renato Silva', dia: '20/11' },
-        { id: '03', nome_turma: 'BDL09', nome_disciplina: 'Design gráfico', professor: 'João Silva', dia: '20/11' },
-    ]
-
-    const carouselImages = [
-        {
-            imgUrl: "https://adm-melies.s3.us-east-1.amazonaws.com/41d748b1363bf89035650168c56230a3-slide-5.jpg",
-        },
-        {
-            imgUrl: "https://adm-melies.s3.us-east-1.amazonaws.com/50642ac270e8c5c4f86386647fd0b2d9-slide-3.jpg",
-        },
-    ];
-
     const valueTotal = installments.map(item => item.valor).reduce((acc, curr) => acc + curr, 0)
-
 
     return (
         <>
@@ -56,12 +26,11 @@ export function Financial({ navigation, route = {} }) {
             <Body>
                 <View style={{ display: 'flex', flexDirection: 'row', marginTop: 12, width: '100%', justifyContent: 'flex-start', paddingHorizontal: 30 }}>
                     <TextUI bold>Você tem </TextUI>
-                    <TextUI bold styles={{ color: 'red' }}>R$ {valueTotal}</TextUI>
+                    <TextUI bold style={{ color: 'red' }}>R$ {valueTotal}</TextUI>
                     <TextUI bold> em aberto.</TextUI>
                 </View>
                 <Spacer size={8} />
 
-                {/* <Image style={{ position: "absolute", bottom: 40, left: 50 }} source={favicon} /> */}
                 <ScrollView showsVerticalScrollIndicator={false} style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -92,10 +61,10 @@ export function Financial({ navigation, route = {} }) {
                                 elevation: 7,
                             }}>
                                 <View style={{ position: 'absolute', left: 15, top: -8, borderRadius: 16, backgroundColor: colorPalette?.buttonColor, paddingHorizontal: 5, paddingVertical: 3 }}>
-                                    <TextUI bold small styles={{ color: '#fff' }}>vencimento - {item?.dia}</TextUI>
+                                    <TextUI bold small style={{ color: '#fff' }}>vencimento - {item?.dia}</TextUI>
                                 </View>
                                 <View style={{ position: 'absolute', right: 5, top: -8, borderRadius: 16, backgroundColor: colorStatus, paddingHorizontal: 5, paddingVertical: 3, alignItems: 'center', justifyContent: 'center' }}>
-                                    <TextUI bold small styles={{ color: '#fff', }}>{item?.status}</TextUI>
+                                    <TextUI bold small style={{ color: '#fff', }}>{item?.status}</TextUI>
                                 </View>
                                 <View>
                                     <TextUI bold>{classDay}</TextUI>
@@ -106,8 +75,8 @@ export function Financial({ navigation, route = {} }) {
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'column' }}>
-                                    <View style={{position: 'absolute', top: -12}}>
-                                    <TextUI small style={{position: 'absolute', top: 10}}>{item?.tipoPagamento}</TextUI>
+                                    <View style={{ position: 'absolute', top: -12 }}>
+                                        <TextUI small style={{ position: 'absolute', top: 10 }}>{item?.tipoPagamento}</TextUI>
                                     </View>
                                     <TextUI subTitle bold >{parcel}</TextUI>
                                     <ButtonComponent small secondary={true} text="imprimir" style={{ width: 80, marginTop: 2 }} />
@@ -157,7 +126,7 @@ const styles = StyleSheet.create({
         height: 550,
         position: "absolute",
         borderTopLeftRadius: 20,
-        justifyContent: "start",
+        justifyContent: "flex-start",
         borderTopRightRadius: 20,
         borderRadius: 15
     },

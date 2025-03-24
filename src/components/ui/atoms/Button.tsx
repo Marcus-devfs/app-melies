@@ -1,24 +1,31 @@
-import { TouchableOpacity, View } from "react-native";
-import { TextUI } from "../atoms";
+import { TouchableOpacity } from "react-native";
+import { TextUI } from ".";
 import { Colors } from "../organisms";
-import { useAppContext } from "../../contexts/AppContext";
+import { useAppContext } from "../../../contexts/AppContext";
+import React from "react";
 
 
-export const ButtonComponent = (props) => {
+interface ButtonProps {
+    secondary?: boolean;
+    small?: boolean;
+    large?: boolean;
+    onPress?: () => void;
+    text?: string;
+    style?: any;
+}
 
-    const { login, alert, theme, colorPalette, } = useAppContext()
+export const ButtonComponent: React.FC<ButtonProps> = (props) => {
+
+    const { colorPalette, } = useAppContext()
 
 
     const {
         secondary = false,
-        tertiary = false,
         small = false,
         large = false,
-        overallSize = 'regular',
         onPress = () => { },
         text = '',
         style = {},
-        closeButton = false,
     } = props;
 
     return (
@@ -26,23 +33,26 @@ export const ButtonComponent = (props) => {
             style={{
                 ...styles.buttonContainer,
                 backgroundColor: colorPalette?.buttonColor,
+                color: '#fff',
                 ...(secondary && {
-                    borderRadius: 8,
+                    borderRadius: 30,
                     paddingHorizontal: small ? 5 : 15,
                     paddingVertical: small ? 5 : 15,
-                    borderColor: colorPalette?.buttonColor,
+                    borderColor: 'lightgray',
                     backgroundColor: 'transparent',
-                    borderWidth: 2,
+                    borderWidth: 1,
                     marginTop: 10,
                     justifyContent: 'center',
-                    alignItems: 'center'
+                    width: '100%',
+                    alignItems: 'center',
+                    color: colorPalette.textColor
                 }),
                 ...(large && { width: '100%', maxWidth: 230 }),
                 ...style,
             }}
             onPress={onPress}
         >
-            <TextUI small={small} bold style={{ color: colorPalette?.textColor || '#fff' }}>{text}</TextUI>
+            <TextUI large={large} small={small} bold style={{ color: secondary ? 'gray' : '#fff' }}>{text}</TextUI>
         </TouchableOpacity>
     )
 }
@@ -50,7 +60,7 @@ export const ButtonComponent = (props) => {
 const styles = {
     buttonContainer: {
         padding: 15,
-        borderRadius: 8,
+        borderRadius: 30,
         alignItems: 'center',
         marginTop: 40
     },

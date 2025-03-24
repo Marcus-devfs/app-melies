@@ -1,18 +1,18 @@
-import React, { useContext, useEffect } from 'react'
+import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SignIn } from '../../screens';
+import { SignIn, Onboarding } from '../../../screens';
 import MainTabNavigator from './MainTabNavigator';
-import { useAppContext } from '../../../contexts/AppContext';
+import { useAppContext } from '../../../../contexts/AppContext';
 
 const Stack = createNativeStackNavigator();
 
-export default function StackNavigation(){
-    const {user, setUser} = useAppContext()
+export default function StackNavigation() {
+    const { user, setUser } = useAppContext()
 
     return (
 
         <Stack.Navigator
-            initialRouteName="Signin"
+            initialRouteName={user ? 'MainTabNavigator' : 'Onboarding'}
             screenOptions={{
                 headerShown: false
             }}>
@@ -22,6 +22,7 @@ export default function StackNavigation(){
             }
             {!user &&
                 <>
+                    <Stack.Screen name="Onboarding" component={Onboarding} />
                     <Stack.Screen name="SignIn" component={SignIn} />
                 </>
             }

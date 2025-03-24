@@ -1,13 +1,23 @@
 
 import { Text } from 'react-native'
-import { Colors } from '../organisms';
-import { useAppContext } from '../../contexts/AppContext';
+import { useAppContext } from '../../../contexts/AppContext';
+import React from 'react';
 
-export const TextUI = (props) => {
+interface TextProps {
+    children: React.ReactNode;
+    style?: any;
+    bold?: boolean;
+    small?: boolean;
+    subTitle?: boolean;
+    title?: boolean;
+    large?: boolean;
+}
+
+export const TextUI: React.FC<TextProps> = (props) => {
 
     const {
         children,
-        styles = {},
+        style = {},
         bold = false,
         small = false,
         subTitle = false,
@@ -15,7 +25,7 @@ export const TextUI = (props) => {
         large = false
     } = props;
 
-    const { login, alert, theme, colorPalette } = useAppContext()
+    const { colorPalette } = useAppContext()
 
 
     return (
@@ -25,11 +35,11 @@ export const TextUI = (props) => {
                     '#f0f0f0',
                 fontWeight: bold ? 'bold' : '500',
                 fontSize: 14,
-                ...(small && { fontSize: 10 }),
+                ...(small && { fontSize: 9 }),
                 ...(subTitle && { fontSize: 15 }),
                 ...(title && { fontSize: 18 }),
                 ...(large && { fontSize: 20 }),
-                ...styles,
+                ...style,
             }}
         >
             {children}

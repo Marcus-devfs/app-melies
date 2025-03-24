@@ -1,14 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { ButtonComponent, TextUI } from '../../atoms'
-import { Body, Colors, Header } from '../../organisms'
-import perfil_icon from './../../../../assets/icons/perfil.jpg';
-import power_icon from './../../../../assets/icons/power_icon.png';
-import themes_icon from './../../../../assets/icons/themes_icon.png';
-import suport_icon from './../../../../assets/icons/suport_icon.png';
+import {  TextUI } from '../../ui/atoms'
+import { Body, Colors, Header } from '../../ui/organisms/index.tsx'
 import { useAppContext } from '../../../contexts/AppContext';
+import { MaterialIcons } from '@expo/vector-icons';
 
-export function UserProfile({ navigation, route = {} }) {
+export function UserProfile() {
 
     const { theme, setUser, colorPalette, setTheme } = useAppContext()
     const menuItems = [
@@ -19,10 +16,10 @@ export function UserProfile({ navigation, route = {} }) {
     ]
 
     const accessButtons = [
-        { id: '01', text: 'Suporte', to: '', icon: suport_icon, },
-        { id: '02', text: 'Tema', to: '', icon: themes_icon, onClick: () => setTheme(!theme) },
-        { id: '03', text: 'Sair', toString: '', icon: power_icon, onClick: () => setUser(false) }
-    ]
+        { id: '01', text: 'Suporte', to: '', icon: 'headset' },
+        { id: '02', text: 'Tema', to: '', icon: 'brightness-6', onClick: () => setTheme(!theme) },
+        { id: '03', text: 'Sair', to: '', icon: 'logout', onClick: () => setUser(false) }
+    ];
 
 
     return (
@@ -30,12 +27,9 @@ export function UserProfile({ navigation, route = {} }) {
             <Header title={'Meus Dados'} />
             <Body>
                 <View style={{ flexDirection: 'row', backgroundColor: colorPalette?.buttonColor, paddingVertical: 25, paddingHorizontal: 20 }}>
-                    <TouchableOpacity>
-                        <Image style={{ width: 64, height: 64, borderRadius: 64 }} source={perfil_icon} />
-                    </TouchableOpacity>
                     <View style={{ paddingHorizontal: 10, marginTop: 15 }}>
-                        <TextUI styles={{ color: 'white' }}>Olá,</TextUI>
-                        <TextUI bold title styles={{ color: 'white' }}>Marcus Silva</TextUI>
+                        <TextUI style={{ color: 'white' }}>Olá,</TextUI>
+                        <TextUI bold title style={{ color: 'white' }}>Marcus Silva</TextUI>
                     </View>
                 </View>
 
@@ -61,9 +55,7 @@ export function UserProfile({ navigation, route = {} }) {
                                 elevation: 5,
                             }} onPress={item?.onClick}>
                                 <View>
-                                    <Image style={{ width: 50, height: 50, borderRadius: 50 }} source={item?.icon} />
-                                    {/* <Image style={{ width: 64, height: 64, borderRadius: 64 }} source={require(`
-                                    ./../../../../assets/icons/${item?.icon || ''}`)} /> */}
+                                <MaterialIcons name={item.icon as keyof typeof MaterialIcons.glyphMap} size={24} color="black" />
                                 </View>
                                 <View style={{ paddingHorizontal: 10, marginTop: 15 }}>
                                     <TextUI bold>{item?.text}</TextUI>
@@ -140,7 +132,7 @@ const styles = StyleSheet.create({
         height: 550,
         position: "absolute",
         borderTopLeftRadius: 20,
-        justifyContent: "start",
+        justifyContent: "flex-start",
         borderTopRightRadius: 20,
         borderRadius: 15
     },

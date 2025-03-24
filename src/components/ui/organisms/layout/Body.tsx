@@ -1,10 +1,15 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { useAppContext } from '../../../contexts/AppContext'
+import { useAppContext } from '../../../../contexts/AppContext'
 import { StatusBarComponent } from '../../atoms/StatusBar'
 
-export const Body = ({ children, padding = 20 }) => {
-    const { theme, setTheme, colorPalette } = useAppContext()
+interface BodyProps {
+    children: React.ReactNode
+    padding?: number
+}
+
+export const Body: React.FC<BodyProps> = ({ children, padding = 20 }) => {
+    const { colorPalette } = useAppContext()
 
     return (
         <View style={{ ...styles.container, backgroundColor: colorPalette?.primary }}>

@@ -1,49 +1,40 @@
 import React, { useState } from 'react'
-import { ImageBackground, View, Image, StyleSheet, StatusBar, TouchableOpacity } from 'react-native'
-import { TextUI, ButtonComponent, TextInputField } from '../../atoms'
-import { Colors } from '../../organisms'
-import themeIcon from './../../../../assets/icons/theme_icon.png';
-import themeIconDark from './../../../../assets/icons/theme_icon_dark.png';
-import backgroundImageClear from '../../../../assets/background/login-clean.png';
-import backgroundImageDark from '../../../../assets/background/login-dark.png';
-import faviconClear from './../../../../assets/icons/favicon_clear.png';
-import faviconDark from './../../../../assets/icons/favicon_dark.png';
+import { View, StyleSheet, StatusBar, TouchableOpacity, Image } from 'react-native'
+import { TextUI, ButtonComponent, TextInputField } from '../../ui/atoms'
+import { Colors } from '../../ui/organisms'
 import { useAppContext } from '../../../contexts/AppContext';
+import { UserData } from '../../../typesAndInterfaces';
+import { MaterialIcons } from '@expo/vector-icons';
 
-export function SignIn({ navigation, route = {} }) {
+export function SignIn({ navigation, route = {} }: any) {
 
     const [showLogo, setShowLogo] = useState(true)
-    const [userData, setUserData] = useState(true)
-    const { user, setUser, theme, colorPalette, setTheme } = useAppContext()
+    const [userData, setUserData] = useState<UserData>({
+        email: '',
+        password: ''
+    })
+    const { setUser, theme, colorPalette } = useAppContext()
 
 
-    const onChange = ({ name, value }) => {
+    const onChange = ({ name, value }: any) => {
         setUserData({
             ...userData,
             [name]: value
         })
     }
 
-    const colorIcon = theme ? themeIcon : themeIconDark;
-    const backgroundImage = theme ? backgroundImageClear : backgroundImageDark;
-    const favicon = theme ? faviconClear : faviconDark;
-
     return (
         <>
             <StatusBar barStyle="light-content" />
 
-
-            <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
-                <TouchableOpacity style={{ position: "absolute", top: 40, right: 50 }} onPress={() => setTheme(!theme)}>
-                    <Image style={{ width: 40, height: 40 }} source={colorIcon} />
+            <View style={styles.container}>
+                <TouchableOpacity style={styles.arrowBack} onPress={() => navigation.goBack()}>
+                    <MaterialIcons name='arrow-left' size={25} color={Colors.clearText} />
                 </TouchableOpacity>
                 <View style={{ ...styles.fieldsContainer, backgroundColor: !theme ? colorPalette?.primary : colorPalette?.secondary }}>
 
-                    <View style={{ paddingHorizontal: 20, display: 'flex', flexDirection: 'row', width: `100%`, justifyContent: 'space-between', alignItems: 'center' }}>
-                        <TextUI bold large style={styles.title}>Bem-vindo</TextUI>
-                        <View style={{ borderRadius: 12, backgroundColor: colorPalette?.buttonColor, paddingVertical: 5, paddingHorizontal: 12, alignItems: "center", justifyContent: "center" }}>
-                            <TextUI styles={{ color: '#fff', fontWeight: "bold", fontSize: 13 }}>ALUNO</TextUI>
-                        </View>
+                    <View style={{ display: 'flex', width: `100%`, justifyContent: 'center', alignItems: 'center' }}>
+                        <TextUI bold large style={styles.title}>Log in</TextUI>
                     </View>
                     <View style={{ marginTop: 30 }}>
 
@@ -61,18 +52,14 @@ export function SignIn({ navigation, route = {} }) {
                                 color: !theme ? '#fff' : colorPalette?.textColor || '#fff',
                             }}
                             autoCapitalize='none'
-                            keyboardType='email-address'
-                            textContentType='emailAddress'
-                            returnKeyType="next"
-                            placeholderTextColor='#fff'
                             onBlur={() => setShowLogo(true)}
                             onFocus={() => setShowLogo(false)}
                         />
 
                         <TextInputField
                             onChangeText={onChange}
-                            value={userData?.senha}
-                            name='senha'
+                            value={userData?.password}
+                            name='password'
                             placeholder='Senha'
                             label='Senha'
                             required
@@ -83,9 +70,6 @@ export function SignIn({ navigation, route = {} }) {
                                 color: !theme ? '#fff' : colorPalette?.textColor || '#fff',
                             }}
                             autoCapitalize='none'
-                            keyboardType="visible-password"
-                            textContentType="password"
-                            placeholderTextColor='#fff'
                             onBlur={() => setShowLogo(true)}
                             onFocus={() => setShowLogo(false)}
                         />
@@ -94,11 +78,13 @@ export function SignIn({ navigation, route = {} }) {
                     <ButtonComponent text="Entrar" onPress={() => setUser(true)} />
                     <View style={{ flexDirection: 'column', marginTop: 20, alignItems: 'center', width: '100%' }}>
                         <TextUI>Esqueceu sua senha?</TextUI>
-                        <ButtonComponent secondary={true} text="Redefinir" style={{ width: 140 }} />
+                        <ButtonComponent secondary={true} text="Redefinir" />
                     </View>
-                    <Image style={{ position: "absolute", bottom: 40, left: 50 }} source={favicon} />
                 </View>
-            </ImageBackground>
+                <View style={styles.logoContainer}>
+                <Image style={{ width: 140, height: 65, alignSelf: 'center' }} source={require('../../../../assets/icons/favicon_clear.png')} />
+                </View>
+            </View>
         </>
     )
 }
@@ -106,6 +92,17 @@ export function SignIn({ navigation, route = {} }) {
 const styles = StyleSheet.create({
     safeAreaTop: {
         backgroundColor: '#557316'
+    },
+    arrowBack: {
+        borderWidth: 1,
+        borderColor: 'lightgray',
+        borderRadius: 8,
+        width: 'auto',
+        display: 'flex',
+        maxWidth: 40,
+        padding: 5,
+        marginLeft: 8,
+        marginTop: 8
     },
     safeAreaBottom: {
         // flex: 1,
@@ -115,29 +112,28 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#557316'
+        paddingTop: 50,
+        paddingHorizontal: 10,
+        backgroundColor: Colors.clearSecondary,
+        gap: 5
     },
     logoContainer: {
         height: 100,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 80,
-        backgroundColor: '#557316'
+        padding: 40
     },
     logotipo: {
         width: 70,
         height: 85
     },
     fieldsContainer: {
-        paddingHorizontal: 40,
-        paddingVertical: 60,
-        width: 350,
-        height: 550,
-        position: "absolute",
-        borderTopLeftRadius: 20,
-        justifyContent: "start",
-        borderTopRightRadius: 20,
-        borderRadius: 15
+        justifyContent: "flex-start",
+        width: '100%',
+        height: 'auto',
+        padding: 20,
+        display: 'flex',
+        paddingTop: 80
     },
     title: {
         fontSize: 30,
@@ -151,7 +147,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 18,
         color: Colors.darkText,
-        borderRadius: 8,
     },
     submitButton: {
         backgroundColor: Colors.darkButton,
