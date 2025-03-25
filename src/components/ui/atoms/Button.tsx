@@ -41,7 +41,6 @@ export const ButtonComponent: React.FC<ButtonProps> = (props) => {
                     borderColor: 'lightgray',
                     backgroundColor: 'transparent',
                     borderWidth: 1,
-                    marginTop: 10,
                     justifyContent: 'center',
                     width: '100%',
                     alignItems: 'center',
@@ -62,7 +61,6 @@ const styles = {
         padding: 15,
         borderRadius: 30,
         alignItems: 'center',
-        marginTop: 40
     },
     closeButtonContainer: {
         // backgroundColor: '#f0f0f0',

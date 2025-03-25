@@ -1,18 +1,16 @@
-
-import React, { useRef, useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import Swiper from 'react-native-swiper';  // Importando o Swiper
 import { ButtonComponent, TextUI } from '../../ui/atoms';
 import { useAppContext } from '../../../contexts/AppContext';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'; // Importar o tipo correto
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-// Definir tipos para o slide
 interface Slide {
     title: string;
     description: string;
-    image: any; // Pode ser uma imagem local ou URL
-    button: boolean
+    image: any;
+    button: boolean;
 }
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -23,31 +21,28 @@ const slides: Slide[] = [
         title: "Bem-vindo ao nosso app",
         description: "Agora você pode fazer seus pagamentos, solicitar documentos e muito mais!",
         image: require('../../../../assets/background/payment-logo.jpg'),
-        button: false// Adicione a imagem para o primeiro slide
+        button: false,
     },
     {
         title: "Acompanhe suas notas",
         description: "Agora, com o aplicativo do aluno, você pode acessar suas notas, frequencia e boletim.",
         image: require('../../../../assets/background/boletim-logo.jpg'),
-        button: true // Adicione a imagem para o segundo slide
+        button: true,
     },
 ];
 
-// Tipando o tipo de navegação
 type RootStackParamList = {
     Onboarding: undefined;
     SignIn: undefined;
 };
 
 export function Onboarding() {
-    const { colorPalette } = useAppContext()
+    const { colorPalette } = useAppContext();
     const [activeIndex, setActiveIndex] = useState(0);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-
-
-    // Renderizar cada item no carousel
-    const renderItem = ({ item }: { item: Slide }) => (
+    // Renderizar cada item no swiper
+    const renderItem = (item: Slide) => (
         <View style={styles.slide}>
             <Image source={item.image} style={styles.image} />
             <TextUI style={styles.title}>{item.title}</TextUI>
@@ -55,7 +50,7 @@ export function Onboarding() {
             {item.button && (
                 <ButtonComponent
                     large
-                    style={{ paddingHorizontal: 20 }}
+                    style={{ paddingHorizontal: 20, marginTop: 20 }}
                     text="Fazer Login"
                     onPress={() => navigation.navigate('SignIn')}
                 />
@@ -65,27 +60,28 @@ export function Onboarding() {
 
     return (
         <View style={styles.container}>
-            <Carousel
-                data={slides}
-                renderItem={renderItem}
-                sliderWidth={screenWidth}
-                itemWidth={screenWidth}
-                inactiveSlideOpacity={0.7} // Ajuste para slides inativos
-                onSnapToItem={(index) => setActiveIndex(index)}
-            />
-            <Pagination
-                dotsLength={slides.length}
-                activeDotIndex={activeIndex}
+            <Swiper
+                showsPagination={true}  // Ativa a navegação por página
+                onIndexChanged={(index) => setActiveIndex(index)}  // Atualiza o índice ativo
+                activeDotColor={colorPalette?.buttonColor}  // Cor do ponto ativo
                 dotStyle={{
                     width: 10,
                     height: 10,
                     borderRadius: 5,
                     marginHorizontal: 3,
-                    backgroundColor: colorPalette?.buttonColor,
+                    backgroundColor: '#ccc',
                 }}
-                inactiveDotOpacity={0.4}
-                inactiveDotScale={0.6}
-            />
+                activeDotStyle={{
+                    backgroundColor: colorPalette?.buttonColor,  // Cor do ponto ativo
+                }}
+                loop={false}  // Desativa o loop, para que o swiper pare na última página
+            >
+                {slides.map((item, index) => (
+                    <View key={index}>
+                        {renderItem(item)}
+                    </View>
+                ))}
+            </Swiper>
         </View>
     );
 }
@@ -103,7 +99,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
-        gap: 4
+        gap: 4,
     },
     image: {
         width: 300,
@@ -115,7 +111,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginVertical: 10,
-        marginTop: 40
+        marginTop: 40,
     },
     description: {
         fontSize: 16,
@@ -134,3 +130,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
+

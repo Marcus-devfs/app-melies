@@ -75,10 +75,10 @@ export function SignIn({ navigation, route = {} }: any) {
                         />
                     </View>
 
-                    <ButtonComponent text="Entrar" onPress={() => setUser(true)} />
+                    <ButtonComponent text="Entrar" onPress={() => setUser(true)} style={{marginTop: 15}}/>
                     <View style={{ flexDirection: 'column', marginTop: 20, alignItems: 'center', width: '100%' }}>
                         <TextUI>Esqueceu sua senha?</TextUI>
-                        <ButtonComponent secondary={true} text="Redefinir" />
+                        <ButtonComponent secondary={true} text="Redefinir" style={{marginTop: 15}}/>
                     </View>
                 </View>
                 <View style={styles.logoContainer}>

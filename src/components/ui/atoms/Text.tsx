@@ -34,11 +34,11 @@ export const TextUI: React.FC<TextProps> = (props) => {
                 color: colorPalette?.textColor ||
                     '#f0f0f0',
                 fontWeight: bold ? 'bold' : '500',
-                fontSize: 14,
+                fontSize: 13,
                 ...(small && { fontSize: 9 }),
                 ...(subTitle && { fontSize: 15 }),
-                ...(title && { fontSize: 18 }),
-                ...(large && { fontSize: 20 }),
+                ...(large && { fontSize: 18 }),
+                ...(title && { fontSize: 20 }),
                 ...style,
             }}
         >
